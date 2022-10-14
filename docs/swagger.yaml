@@ -1,0 +1,614 @@
+basePath: /
+definitions:
+  delivery.ErrorResponse:
+    properties:
+      error:
+        example: error
+        type: string
+      message:
+        example: message
+        type: string
+    type: object
+  models.Comment:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        example: Sheesh!
+        type: string
+      photo:
+        $ref: '#/definitions/models.Photo'
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        type: integer
+    type: object
+  models.Photo:
+    properties:
+      caption:
+        example: Beautiful as it is
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        example: https://szczynk.github.io/blog/_nuxt/img/128affc.png
+        type: string
+      title:
+        example: My Sweet Photo
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        type: integer
+    type: object
+  models.SocialMedia:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        example: johndee13
+        type: string
+      social_media_url:
+        example: johndee13url
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+      user_id:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      age:
+        example: 8
+        type: integer
+      created_at:
+        type: string
+      email:
+        example: johndee@gmail.com
+        type: string
+      id:
+        type: integer
+      password:
+        example: "12345678"
+        type: string
+      updated_at:
+        type: string
+      username:
+        example: Johndee
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: szczynk@gmail.com
+    name: szczynk
+  description: MyGram is a free photo sharing app written in Go. People can share,
+    view, and comment photos by everyone. Anyone can create an account by registering
+    an email address and selecting a username.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  title: MyGram API
+  version: "1.0"
+paths:
+  /comments:
+    get:
+      consumes:
+      - application/json
+      description: get comments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Comment'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Fetch comments
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      description: create and store an comment
+      parameters:
+      - description: Comment
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Comment'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Create an comment
+      tags:
+      - comments
+  /comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete an comment by ID
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Delete an comment
+      tags:
+      - comments
+    put:
+      consumes:
+      - application/json
+      description: update an comment by ID
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Update an comment
+      tags:
+      - comments
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: check health
+  /photos:
+    get:
+      consumes:
+      - application/json
+      description: get photos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Photo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Fetch photos
+      tags:
+      - photos
+    post:
+      consumes:
+      - application/json
+      description: create and store an photo
+      parameters:
+      - description: Photo
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Photo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Create an photo
+      tags:
+      - photos
+  /photos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete an photo by ID
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Delete an photo
+      tags:
+      - photos
+    put:
+      consumes:
+      - application/json
+      description: update an photo by ID
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Update an photo
+      tags:
+      - photos
+  /socialMedias:
+    get:
+      consumes:
+      - application/json
+      description: get socialMedias
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.SocialMedia'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Fetch socialMedias
+      tags:
+      - socialMedias
+    post:
+      consumes:
+      - application/json
+      description: create and store an socialMedia
+      parameters:
+      - description: SocialMedia
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.SocialMedia'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Create an socialMedia
+      tags:
+      - socialMedias
+  /socialMedias/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete an socialMedia by ID
+      parameters:
+      - description: SocialMedia ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Delete an socialMedia
+      tags:
+      - socialMedias
+    put:
+      consumes:
+      - application/json
+      description: update an socialMedia by ID
+      parameters:
+      - description: SocialMedia ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Update an socialMedia
+      tags:
+      - socialMedias
+  /users:
+    delete:
+      consumes:
+      - application/json
+      description: delete an user by ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Delete an user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: update an user by ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - Bearer: []
+      summary: Update an user
+      tags:
+      - users
+  /users/login:
+    get:
+      consumes:
+      - application/json
+      description: get an user by ID
+      parameters:
+      - description: User
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: Show an user
+      tags:
+      - users
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: create and store an user
+      parameters:
+      - description: User
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: Create an user
+      tags:
+      - users
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
