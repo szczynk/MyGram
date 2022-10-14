@@ -29,3 +29,9 @@ Start the server
 ```bash
 go run main.go
 ```
+
+Check the API documentation
+
+```html
+http://localhost:8080/swagger/index.html
+```
