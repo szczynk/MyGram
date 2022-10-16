@@ -14,8 +14,8 @@ func NewPhotoUsecase(pr models.PhotoRepo) *photoUsecase {
 	return &photoUsecase{pr}
 }
 
-func (puc *photoUsecase) Fetch(c context.Context, m *[]models.Photo) (err error) {
-	if err = puc.pr.Fetch(c, m); err != nil {
+func (puc *photoUsecase) Fetch(c context.Context, pa *models.Pagination) (err error) {
+	if err = puc.pr.Fetch(c, pa); err != nil {
 		return err
 	}
 	return

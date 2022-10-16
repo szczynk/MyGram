@@ -29,11 +29,11 @@ func (_m *CommentUsecase) Delete(_a0 context.Context, _a1 uint) error {
 }
 
 // Fetch provides a mock function with given fields: _a0, _a1
-func (_m *CommentUsecase) Fetch(_a0 context.Context, _a1 *[]models.Comment) error {
+func (_m *CommentUsecase) Fetch(_a0 context.Context, _a1 *models.Pagination) error {
 	ret := _m.Called(_a0, _a1)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *[]models.Comment) error); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *models.Pagination) error); ok {
 		r0 = rf(_a0, _a1)
 	} else {
 		r0 = ret.Error(0)

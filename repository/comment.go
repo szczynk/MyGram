@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"strings"
 	"time"
 
 	"github.com/szczynk/MyGram/models"
@@ -16,18 +17,25 @@ func NewCommentRepo(db *gorm.DB) *commentRepo {
 	return &commentRepo{db}
 }
 
-func (cr commentRepo) Fetch(c context.Context, m *[]models.Comment) (err error) {
+func (cr commentRepo) Fetch(c context.Context, pa *models.Pagination) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	var comments []models.Comment
+
 	err = cr.db.Debug().WithContext(ctx).
+		Scopes(Paginate(&comments, pa, cr.db)).
 		Preload("User", func(db *gorm.DB) *gorm.DB {
 			return db.Select("ID", "Email", "Username")
 		}).
 		Preload("Photo", func(db *gorm.DB) *gorm.DB {
 			return db.Select("ID", "UserID", "Title", "PhotoUrl", "Caption")
 		}).
-		Find(&m).Error
+		Find(&comments).Error
+
+	pa.Rows = comments
+	pa.Sort = strings.Replace(pa.Sort, " ", ":", -1)
+
 	if err != nil {
 		return err
 	}

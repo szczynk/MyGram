@@ -39,12 +39,9 @@ func NewPhotoRoute(handlers *gin.Engine, puc models.PhotoUsecase) {
 // @Security     Bearer
 // @Router       /photos        [get]
 func (route *photoRoutes) Fetch(c *gin.Context) {
-	var (
-		photos []models.Photo
-		err    error
-	)
+	paginate := PaginateFromQuery(c)
 
-	err = route.puc.Fetch(c.Request.Context(), &photos)
+	err := route.puc.Fetch(c.Request.Context(), &paginate)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
@@ -53,7 +50,7 @@ func (route *photoRoutes) Fetch(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, photos)
+	c.JSON(http.StatusOK, paginate)
 }
 
 // Store godoc

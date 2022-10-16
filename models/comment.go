@@ -38,7 +38,7 @@ func (c *Comment) BeforeUpdate(db *gorm.DB) (err error) {
 }
 
 type CommentUsecase interface {
-	Fetch(context.Context, *[]Comment) error
+	Fetch(context.Context, *Pagination) error
 	Store(context.Context, *Comment) error
 	GetByUserID(context.Context, *Comment, uint) error
 	Update(context.Context, Comment, uint) (Comment, error)
@@ -46,7 +46,7 @@ type CommentUsecase interface {
 }
 
 type CommentRepo interface {
-	Fetch(context.Context, *[]Comment) error
+	Fetch(context.Context, *Pagination) error
 	Store(context.Context, *Comment) error
 	GetByUserID(context.Context, *Comment, uint) error
 	Update(context.Context, Comment, uint) (Comment, error)

@@ -41,12 +41,9 @@ func NewCommentRoute(handlers *gin.Engine, cuc models.CommentUsecase, puc models
 // @Security     Bearer
 // @Router       /comments      [get]
 func (route *commentRoutes) Fetch(c *gin.Context) {
-	var (
-		comments []models.Comment
-		err      error
-	)
+	paginate := PaginateFromQuery(c)
 
-	err = route.cuc.Fetch(c.Request.Context(), &comments)
+	err := route.puc.Fetch(c.Request.Context(), &paginate)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
@@ -55,7 +52,7 @@ func (route *commentRoutes) Fetch(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, comments)
+	c.JSON(http.StatusOK, paginate)
 }
 
 // Store godoc

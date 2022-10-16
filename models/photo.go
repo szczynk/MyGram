@@ -38,7 +38,7 @@ func (p *Photo) BeforeUpdate(db *gorm.DB) (err error) {
 }
 
 type PhotoUsecase interface {
-	Fetch(context.Context, *[]Photo) error
+	Fetch(context.Context, *Pagination) error
 	Store(context.Context, *Photo) error
 	GetByID(context.Context, *Photo, uint) error
 	GetByUserID(context.Context, *Photo, uint) error
@@ -47,7 +47,7 @@ type PhotoUsecase interface {
 }
 
 type PhotoRepo interface {
-	Fetch(context.Context, *[]Photo) error
+	Fetch(context.Context, *Pagination) error
 	Store(context.Context, *Photo) error
 	GetByID(context.Context, *Photo, uint) error
 	GetByUserID(context.Context, *Photo, uint) error

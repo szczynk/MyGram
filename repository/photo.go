@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"strings"
 	"time"
 
 	"github.com/szczynk/MyGram/models"
@@ -16,15 +17,22 @@ func NewPhotoRepo(db *gorm.DB) *photoRepo {
 	return &photoRepo{db}
 }
 
-func (pr photoRepo) Fetch(c context.Context, m *[]models.Photo) (err error) {
+func (pr photoRepo) Fetch(c context.Context, pa *models.Pagination) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	var photos []models.Photo
+
 	err = pr.db.Debug().WithContext(ctx).
+		Scopes(Paginate(&photos, pa, pr.db)).
 		Preload("User", func(db *gorm.DB) *gorm.DB {
 			return db.Select("ID", "Email", "Username")
 		}).
-		Find(&m).Error
+		Find(&photos).Error
+
+	pa.Rows = photos
+	pa.Sort = strings.Replace(pa.Sort, " ", ":", -1)
+
 	if err != nil {
 		return err
 	}
