@@ -57,6 +57,8 @@ func main() {
 	port := fmt.Sprintf(":%s", viper.GetString("server.port"))
 	routers := gin.Default()
 
+	routers.Use(cors.Default())
+
 	routers.GET("/health", CheckHealth)
 
 	userRepo := repository.NewUserRepo(db)
