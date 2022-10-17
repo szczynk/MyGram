@@ -27,6 +27,8 @@ func NewSocialMediaRoute(handlers *gin.Engine, cuc models.SocialMediaUsecase) {
 	}
 }
 
+// ? perlu melewati proses autentikasi dan autorisasi terlebih dahulu
+// ? hanya get socialMedia sendiri?
 // Fetch godoc
 // @Summary      Fetch socialMedias
 // @Description  get socialMedias
@@ -44,7 +46,10 @@ func (route *socialMediaRoutes) Fetch(c *gin.Context) {
 		err          error
 	)
 
-	err = route.cuc.Fetch(c.Request.Context(), &socialMedias)
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userID := uint(userData["id"].(float64))
+
+	err = route.cuc.Fetch(c.Request.Context(), &socialMedias, userID)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",

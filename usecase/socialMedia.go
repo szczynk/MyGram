@@ -14,8 +14,8 @@ func NewSocialMediaUsecase(sr models.SocialMediaRepo) *socialMediaUsecase {
 	return &socialMediaUsecase{sr}
 }
 
-func (suc *socialMediaUsecase) Fetch(c context.Context, m *[]models.SocialMedia) (err error) {
-	if err = suc.sr.Fetch(c, m); err != nil {
+func (suc *socialMediaUsecase) Fetch(c context.Context, m *[]models.SocialMedia, userID uint) (err error) {
+	if err = suc.sr.Fetch(c, m, userID); err != nil {
 		return err
 	}
 	return

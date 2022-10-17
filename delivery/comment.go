@@ -29,6 +29,8 @@ func NewCommentRoute(handlers *gin.Engine, cuc models.CommentUsecase, puc models
 	}
 }
 
+// ? perlu melewati proses autentikasi dan autorisasi terlebih dahulu
+// ? hanya get comment sendiri?
 // Fetch godoc
 // @Summary      Fetch comments
 // @Description  get comments
@@ -46,7 +48,10 @@ func (route *commentRoutes) Fetch(c *gin.Context) {
 		err      error
 	)
 
-	err = route.cuc.Fetch(c.Request.Context(), &comments)
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userID := uint(userData["id"].(float64))
+
+	err = route.cuc.Fetch(c.Request.Context(), &comments, userID)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",

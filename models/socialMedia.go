@@ -37,7 +37,7 @@ func (s *SocialMedia) BeforeUpdate(db *gorm.DB) (err error) {
 }
 
 type SocialMediaUsecase interface {
-	Fetch(context.Context, *[]SocialMedia) error
+	Fetch(context.Context, *[]SocialMedia, uint) error
 	Store(context.Context, *SocialMedia) error
 	GetByUserID(context.Context, *SocialMedia, uint) error
 	Update(context.Context, SocialMedia, uint) (SocialMedia, error)
@@ -45,7 +45,7 @@ type SocialMediaUsecase interface {
 }
 
 type SocialMediaRepo interface {
-	Fetch(context.Context, *[]SocialMedia) error
+	Fetch(context.Context, *[]SocialMedia, uint) error
 	Store(context.Context, *SocialMedia) error
 	GetByUserID(context.Context, *SocialMedia, uint) error
 	Update(context.Context, SocialMedia, uint) (SocialMedia, error)

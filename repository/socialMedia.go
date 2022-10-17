@@ -16,13 +16,14 @@ func NewSocialMediaRepo(db *gorm.DB) *socialMediaRepo {
 	return &socialMediaRepo{db}
 }
 
-func (sr socialMediaRepo) Fetch(c context.Context, m *[]models.SocialMedia) (err error) {
+func (sr socialMediaRepo) Fetch(c context.Context, m *[]models.SocialMedia, userID uint) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
 	err = sr.db.Debug().WithContext(ctx).
+		Where("user_id = ?", userID).
 		Preload("User", func(db *gorm.DB) *gorm.DB {
-			return db.Select("ID", "Email", "Username")
+			return db.Select("ID", "Email", "Username", "ProfileImageUrl")
 		}).
 		Find(&m).Error
 	if err != nil {

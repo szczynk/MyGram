@@ -14,8 +14,8 @@ func NewCommentUsecase(cr models.CommentRepo) *commentUsecase {
 	return &commentUsecase{cr}
 }
 
-func (cuc *commentUsecase) Fetch(c context.Context, m *[]models.Comment) (err error) {
-	if err = cuc.cr.Fetch(c, m); err != nil {
+func (cuc *commentUsecase) Fetch(c context.Context, m *[]models.Comment, userID uint) (err error) {
+	if err = cuc.cr.Fetch(c, m, userID); err != nil {
 		return err
 	}
 	return

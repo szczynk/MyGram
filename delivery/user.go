@@ -162,8 +162,9 @@ func (route *userRoutes) Update(c *gin.Context) {
 	}
 
 	updatedUser := models.User{
-		Username: user.Username,
-		Email:    user.Email,
+		Username:        user.Username,
+		Email:           user.Email,
+		ProfileImageUrl: user.ProfileImageUrl,
 	}
 
 	user, err = route.uuc.Update(c.Request.Context(), updatedUser, userID)
