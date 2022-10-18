@@ -28,13 +28,13 @@ func (_m *CommentUsecase) Delete(_a0 context.Context, _a1 uint) error {
 	return r0
 }
 
-// Fetch provides a mock function with given fields: _a0, _a1
-func (_m *CommentUsecase) Fetch(_a0 context.Context, _a1 *[]models.Comment) error {
-	ret := _m.Called(_a0, _a1)
+// Fetch provides a mock function with given fields: _a0, _a1, _a2
+func (_m *CommentUsecase) Fetch(_a0 context.Context, _a1 *[]models.Comment, _a2 uint) error {
+	ret := _m.Called(_a0, _a1, _a2)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *[]models.Comment) error); ok {
-		r0 = rf(_a0, _a1)
+	if rf, ok := ret.Get(0).(func(context.Context, *[]models.Comment, uint) error); ok {
+		r0 = rf(_a0, _a1, _a2)
 	} else {
 		r0 = ret.Error(0)
 	}
