@@ -71,14 +71,14 @@ func (_m *CommentRepo) Store(_a0 context.Context, _a1 *models.Comment) error {
 }
 
 // Update provides a mock function with given fields: _a0, _a1, _a2
-func (_m *CommentRepo) Update(_a0 context.Context, _a1 models.Comment, _a2 uint) (models.Comment, error) {
+func (_m *CommentRepo) Update(_a0 context.Context, _a1 models.Comment, _a2 uint) (models.Photo, error) {
 	ret := _m.Called(_a0, _a1, _a2)
 
-	var r0 models.Comment
-	if rf, ok := ret.Get(0).(func(context.Context, models.Comment, uint) models.Comment); ok {
+	var r0 models.Photo
+	if rf, ok := ret.Get(0).(func(context.Context, models.Comment, uint) models.Photo); ok {
 		r0 = rf(_a0, _a1, _a2)
 	} else {
-		r0 = ret.Get(0).(models.Comment)
+		r0 = ret.Get(0).(models.Photo)
 	}
 
 	var r1 error
