@@ -705,6 +705,12 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/delivery.ErrorResponse"
                         }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/delivery.ErrorResponse"
+                        }
                     }
                 }
             },
@@ -740,6 +746,12 @@ const docTemplate = `{
                     },
                     "401": {
                         "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/delivery.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/delivery.ErrorResponse"
                         }

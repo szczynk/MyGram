@@ -86,6 +86,11 @@ func (pr photoRepo) Delete(c context.Context, id uint) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	err = pr.db.Debug().WithContext(ctx).First(&models.Photo{}, id).Error
+	if err != nil {
+		return err
+	}
+
 	err = pr.db.Debug().WithContext(ctx).Delete(&models.Photo{}, id).Error
 	if err != nil {
 		return err
