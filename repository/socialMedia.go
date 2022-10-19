@@ -76,6 +76,11 @@ func (sr socialMediaRepo) Delete(c context.Context, id uint) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	err = sr.db.Debug().WithContext(ctx).First(&models.SocialMedia{}, id).Error
+	if err != nil {
+		return err
+	}
+
 	err = sr.db.Debug().WithContext(ctx).Delete(&models.SocialMedia{}, id).Error
 	if err != nil {
 		return err

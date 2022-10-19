@@ -71,6 +71,11 @@ func (ur userRepo) Delete(c context.Context, id uint) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	err = ur.db.Debug().WithContext(ctx).First(&models.User{}, id).Error
+	if err != nil {
+		return err
+	}
+
 	err = ur.db.Debug().WithContext(ctx).Delete(&models.User{}, id).Error
 	if err != nil {
 		return err

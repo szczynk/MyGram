@@ -142,6 +142,7 @@ func (route *userRoutes) Login(c *gin.Context) {
 // @Success      200  {string}  models.User
 // @Failure      400  {object}	ErrorResponse
 // @Failure      401  {object}	ErrorResponse
+// @Failure      409  {object}	ErrorResponse
 // @Security     Bearer
 // @Router       /users [put]
 func (route *userRoutes) Update(c *gin.Context) {
@@ -170,6 +171,13 @@ func (route *userRoutes) Update(c *gin.Context) {
 
 	user, err = route.uuc.Update(c.Request.Context(), updatedUser, userID)
 	if err != nil {
+		if strings.Contains(err.Error(), "duplicate") {
+			c.AbortWithStatusJSON(http.StatusConflict, gin.H{
+				"error":   "Conflict",
+				"message": "You can't use invalid or duplicate emails and/or username",
+			})
+			return
+		}
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
 			"message": err.Error(),
@@ -195,6 +203,7 @@ func (route *userRoutes) Update(c *gin.Context) {
 // @Success      200  {string}  string
 // @Failure      400  {object}	ErrorResponse
 // @Failure      401  {object}	ErrorResponse
+// @Failure      404  {object}	ErrorResponse
 // @Security     Bearer
 // @Router       /users					[delete]
 func (route *userRoutes) Delete(c *gin.Context) {
@@ -203,6 +212,13 @@ func (route *userRoutes) Delete(c *gin.Context) {
 
 	err := route.uuc.Delete(c, userID)
 	if err != nil {
+		if strings.Contains(err.Error(), "not found") {
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+				"error":   "Not Found",
+				"message": "User with this token doesn't exist",
+			})
+			return
+		}
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
 			"message": err.Error(),

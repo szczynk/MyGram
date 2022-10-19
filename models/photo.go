@@ -16,7 +16,8 @@ type Photo struct {
 	PhotoUrl string `json:"photo_url" valid:"required~Photo url is required" example:"https://szczynk.github.io/blog/_nuxt/img/128affc.png" gorm:"not null"`
 	Caption  string `json:"caption" example:"Beautiful as it is"`
 
-	User *User `json:"user,omitempty"`
+	User     *User      `json:"user,omitempty"`
+	Comments *[]Comment `json:"-" gorm:"constraint:OnDelete:SET NULL;"`
 
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`

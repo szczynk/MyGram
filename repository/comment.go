@@ -87,6 +87,11 @@ func (cr commentRepo) Delete(c context.Context, id uint) (err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
+	err = cr.db.Debug().WithContext(ctx).First(&models.Comment{}, id).Error
+	if err != nil {
+		return err
+	}
+
 	err = cr.db.Debug().WithContext(ctx).Delete(&models.Comment{}, id).Error
 	if err != nil {
 		return err

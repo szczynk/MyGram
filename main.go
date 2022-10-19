@@ -50,6 +50,9 @@ func init() {
 // @name                        Authorization
 // @description					        Description for what is this security definition being used
 
+// tech stack yg digunakan ialah bahasa go dan postgresql
+// adapun beberapa modul seperti go-validator dan golang-jwt
+
 func main() {
 	db := database.StartDB()
 
@@ -61,6 +64,7 @@ func main() {
 
 	routers.GET("/health", CheckHealth)
 
+	// Mygram memiliki beberapa fitur seperti validasi input data, DI, dan testing (WIP)
 	userRepo := repository.NewUserRepo(db)
 	userUsecase := usecase.NewUserUsecase(userRepo)
 	delivery.NewUserRoute(routers, userUsecase)
