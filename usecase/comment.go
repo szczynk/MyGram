@@ -35,7 +35,7 @@ func (cuc *commentUsecase) GetByUserID(c context.Context, m *models.Comment, id 
 	return
 }
 
-func (cuc *commentUsecase) Update(c context.Context, mu models.Comment, id uint) (p models.Comment, err error) {
+func (cuc *commentUsecase) Update(c context.Context, mu models.Comment, id uint) (p models.Photo, err error) {
 	p, err = cuc.cr.Update(c, mu, id)
 	if err != nil {
 		return p, err

@@ -57,22 +57,30 @@ func (cr commentRepo) GetByUserID(c context.Context, m *models.Comment, id uint)
 	return
 }
 
-func (cr *commentRepo) Update(c context.Context, mu models.Comment, id uint) (comment models.Comment, err error) {
+func (cr *commentRepo) Update(c context.Context, mu models.Comment, id uint) (photo models.Photo, err error) {
 	ctx, cancel := context.WithTimeout(c, 5*time.Second)
 	defer cancel()
 
-	comment = models.Comment{}
-	err = cr.db.Debug().First(&comment, id).Error
+	comment := models.Comment{}
+	photo = models.Photo{}
+
+	err = cr.db.Debug().WithContext(ctx).First(&comment, id).Error
 	if err != nil {
-		return comment, err
+		return photo, err
 	}
 
 	err = cr.db.Debug().WithContext(ctx).Model(&comment).Where("id = ?", id).
 		Updates(mu).Error
 	if err != nil {
-		return comment, err
+		return photo, err
 	}
-	return comment, nil
+
+	err = cr.db.Debug().WithContext(ctx).First(&photo, comment.PhotoID).Error
+	if err != nil {
+		return photo, err
+	}
+
+	return photo, nil
 }
 
 func (cr commentRepo) Delete(c context.Context, id uint) (err error) {

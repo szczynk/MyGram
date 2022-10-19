@@ -41,7 +41,7 @@ type CommentUsecase interface {
 	Fetch(context.Context, *[]Comment, uint) error
 	Store(context.Context, *Comment) error
 	GetByUserID(context.Context, *Comment, uint) error
-	Update(context.Context, Comment, uint) (Comment, error)
+	Update(context.Context, Comment, uint) (Photo, error)
 	Delete(context.Context, uint) error
 }
 
@@ -49,6 +49,6 @@ type CommentRepo interface {
 	Fetch(context.Context, *[]Comment, uint) error
 	Store(context.Context, *Comment) error
 	GetByUserID(context.Context, *Comment, uint) error
-	Update(context.Context, Comment, uint) (Comment, error)
+	Update(context.Context, Comment, uint) (Photo, error)
 	Delete(context.Context, uint) error
 }

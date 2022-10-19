@@ -69,7 +69,7 @@ func (route *commentRoutes) Fetch(c *gin.Context) {
 // @Tags         comments
 // @Accept       json
 // @Produce      json
-// @Param        message  body  models.Comment true  "Comment"
+// @Param        json  body  models.Comment true  "Comment"
 // @Success      201  {object}  models.Comment
 // @Failure      400	{object}	ErrorResponse
 // @Failure      401	{object}	ErrorResponse
@@ -132,7 +132,8 @@ func (route *commentRoutes) Store(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int  true  "Comment ID"
-// @Success      200  {string}  string
+// @Param        json  body  models.Comment true  "Comment"
+// @Success      200  {object}  models.Photo
 // @Failure      400  {object}	ErrorResponse
 // @Failure      401  {object}	ErrorResponse
 // @Failure      404  {object}	ErrorResponse
@@ -141,6 +142,7 @@ func (route *commentRoutes) Store(c *gin.Context) {
 func (route *commentRoutes) Update(c *gin.Context) {
 	var (
 		comment models.Comment
+		photo   models.Photo
 		err     error
 	)
 
@@ -173,7 +175,7 @@ func (route *commentRoutes) Update(c *gin.Context) {
 		Message: comment.Message,
 	}
 
-	comment, err = route.cuc.Update(c.Request.Context(), updatedComment, commentID)
+	photo, err = route.cuc.Update(c.Request.Context(), updatedComment, commentID)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"error":   "Bad Request",
@@ -183,11 +185,12 @@ func (route *commentRoutes) Update(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"id":         comment.ID,
-		"user_id":    comment.UserID,
-		"photo_id":   comment.PhotoID,
-		"message":    comment.Message,
-		"updated_at": comment.UpdatedAt,
+		"id":         photo.ID,
+		"user_id":    photo.UserID,
+		"title":      photo.Title,
+		"photo_url":  photo.PhotoUrl,
+		"caption":    photo.Caption,
+		"updated_at": photo.UpdatedAt,
 	})
 }
 
