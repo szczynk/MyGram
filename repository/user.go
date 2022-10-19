@@ -54,7 +54,7 @@ func (ur *userRepo) Update(c context.Context, mu models.User, id uint) (user mod
 	defer cancel()
 
 	user = models.User{}
-	err = ur.db.Debug().First(&user, id).Error
+	err = ur.db.Debug().WithContext(ctx).First(&user, id).Error
 	if err != nil {
 		return user, err
 	}

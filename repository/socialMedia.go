@@ -59,7 +59,7 @@ func (sr *socialMediaRepo) Update(c context.Context, mu models.SocialMedia, id u
 	defer cancel()
 
 	socialMedia = models.SocialMedia{}
-	err = sr.db.Debug().First(&socialMedia, id).Error
+	err = sr.db.Debug().WithContext(ctx).First(&socialMedia, id).Error
 	if err != nil {
 		return socialMedia, err
 	}

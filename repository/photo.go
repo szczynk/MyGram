@@ -69,7 +69,7 @@ func (pr *photoRepo) Update(c context.Context, mu models.Photo, id uint) (photo 
 	defer cancel()
 
 	photo = models.Photo{}
-	err = pr.db.Debug().First(&photo, id).Error
+	err = pr.db.Debug().WithContext(ctx).First(&photo, id).Error
 	if err != nil {
 		return photo, err
 	}
