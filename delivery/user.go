@@ -33,7 +33,7 @@ func NewUserRoute(handlers *gin.Engine, uuc models.UserUsecase) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        message  body   models.User   true  "User"
+// @Param        json  body   models.User   true  "User"
 // @Success      201  {object}   models.User
 // @Failure      400  {object}	 ErrorResponse
 // @Failure      409  {object}	 ErrorResponse
@@ -83,7 +83,7 @@ func (route *userRoutes) Register(c *gin.Context) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Param        message  body   models.User   true  "User"
+// @Param        json  body  models.User   true  "User"
 // @Success      200  {object}  models.User
 // @Failure      400  {object}  ErrorResponse
 // @Failure      401  {object}	ErrorResponse
@@ -138,7 +138,8 @@ func (route *userRoutes) Login(c *gin.Context) {
 // @Tags         users
 // @Accept       json
 // @Produce      json
-// @Success      200  {string}  string
+// @Param        json  body  models.User   true  "User"
+// @Success      200  {string}  models.User
 // @Failure      400  {object}	ErrorResponse
 // @Failure      401  {object}	ErrorResponse
 // @Security     Bearer

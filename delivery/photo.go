@@ -62,7 +62,7 @@ func (route *photoRoutes) Fetch(c *gin.Context) {
 // @Tags         photos
 // @Accept       json
 // @Produce      json
-// @Param        message  body  models.Photo true  "Photo"
+// @Param        json  body  models.Photo true  "Photo"
 // @Success      201  {object}  models.Photo
 // @Failure      400  {object}	ErrorResponse
 // @Failure      401  {object}	ErrorResponse
@@ -114,7 +114,8 @@ func (route *photoRoutes) Store(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        id   path      int  true  "Photo ID"
-// @Success      200  {string}  string
+// @Param        json  body  models.Photo true  "Photo"
+// @Success      200  {object}  models.Photo
 // @Failure      400  {object}	ErrorResponse
 // @Failure      401  {object}	ErrorResponse
 // @Failure      404  {object}	ErrorResponse

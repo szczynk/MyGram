@@ -67,7 +67,7 @@ func (route *socialMediaRoutes) Fetch(c *gin.Context) {
 // @Tags         socialMedias
 // @Accept       json
 // @Produce      json
-// @Param        message  body  models.SocialMedia true  "SocialMedia"
+// @Param        json  body  models.SocialMedia true  "SocialMedia"
 // @Success      201  {object}  models.SocialMedia
 // @Failure      400	{object}	ErrorResponse
 // @Failure      401	{object}	ErrorResponse

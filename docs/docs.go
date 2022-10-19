@@ -85,7 +85,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Comment",
-                        "name": "message",
+                        "name": "json",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -140,13 +140,22 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Comment",
+                        "name": "json",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Comment"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/models.Photo"
                         }
                     },
                     "400": {
@@ -302,7 +311,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Photo",
-                        "name": "message",
+                        "name": "json",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -357,13 +366,22 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Photo",
+                        "name": "json",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Photo"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "$ref": "#/definitions/models.Photo"
                         }
                     },
                     "400": {
@@ -502,7 +520,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "SocialMedia",
-                        "name": "message",
+                        "name": "json",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -658,6 +676,17 @@ const docTemplate = `{
                     "users"
                 ],
                 "summary": "Update an user",
+                "parameters": [
+                    {
+                        "description": "User",
+                        "name": "json",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -734,7 +763,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "User",
-                        "name": "message",
+                        "name": "json",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -780,7 +809,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "User",
-                        "name": "message",
+                        "name": "json",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -935,6 +964,10 @@ const docTemplate = `{
                 "password": {
                     "type": "string",
                     "example": "12345678"
+                },
+                "profile_image_url": {
+                    "type": "string",
+                    "example": "https://avatars.dicebear.com/api/identicon/your-custom-seed.svg"
                 },
                 "updated_at": {
                     "type": "string"

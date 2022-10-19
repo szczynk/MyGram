@@ -85,6 +85,9 @@ definitions:
       password:
         example: "12345678"
         type: string
+      profile_image_url:
+        example: https://avatars.dicebear.com/api/identicon/your-custom-seed.svg
+        type: string
       updated_at:
         type: string
       username:
@@ -139,7 +142,7 @@ paths:
       parameters:
       - description: Comment
         in: body
-        name: message
+        name: json
         required: true
         schema:
           $ref: '#/definitions/models.Comment'
@@ -208,13 +211,19 @@ paths:
         name: id
         required: true
         type: integer
+      - description: Comment
+        in: body
+        name: json
+        required: true
+        schema:
+          $ref: '#/definitions/models.Comment'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/models.Photo'
         "400":
           description: Bad Request
           schema:
@@ -277,7 +286,7 @@ paths:
       parameters:
       - description: Photo
         in: body
-        name: message
+        name: json
         required: true
         schema:
           $ref: '#/definitions/models.Photo'
@@ -346,13 +355,19 @@ paths:
         name: id
         required: true
         type: integer
+      - description: Photo
+        in: body
+        name: json
+        required: true
+        schema:
+          $ref: '#/definitions/models.Photo'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/models.Photo'
         "400":
           description: Bad Request
           schema:
@@ -404,7 +419,7 @@ paths:
       parameters:
       - description: SocialMedia
         in: body
-        name: message
+        name: json
         required: true
         schema:
           $ref: '#/definitions/models.SocialMedia'
@@ -526,6 +541,13 @@ paths:
       consumes:
       - application/json
       description: update an user by ID
+      parameters:
+      - description: User
+        in: body
+        name: json
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
       produces:
       - application/json
       responses:
@@ -554,7 +576,7 @@ paths:
       parameters:
       - description: User
         in: body
-        name: message
+        name: json
         required: true
         schema:
           $ref: '#/definitions/models.User'
@@ -584,7 +606,7 @@ paths:
       parameters:
       - description: User
         in: body
-        name: message
+        name: json
         required: true
         schema:
           $ref: '#/definitions/models.User'
