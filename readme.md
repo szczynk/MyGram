@@ -14,33 +14,33 @@ To get started with MyGram, follow the steps below:
 
 1. Clone the repository:
 
-  ```bash
-  git clone https://github.com/szczynk/MyGram.git
-  ```
+    ```bash
+    git clone https://github.com/szczynk/MyGram.git
+    ```
 
-2. Install all required dependencies:
+1. Install all required dependencies:
 
-  ```bash
-  cd MyGram && go mod tidy
-  ```
+    ```bash
+    cd MyGram && go mod tidy
+    ```
 
-3. Copy the example config file and adjust the config file:
+1. Copy the example config file and adjust the config file:
 
-  ```bash
-  cp config.example.yaml config.yaml
-  ```
+    ```bash
+    cp config.example.yaml config.yaml
+    ```
 
-4. Start the server:
+1. Start the server:
 
-  ```bash
-  go run main.go
-  ```
+    ```bash
+    go run main.go
+    ```
 
-5. Check the API documentation:
+1. Check the API documentation:
 
-  ```bash
-  http://localhost:8080/swagger/index.html
-  ```
+    ```bash
+    http://localhost:8080/swagger/index.html
+    ```
 
 ## Contributing
 
