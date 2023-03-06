@@ -1,37 +1,51 @@
-# Final Project - MyGram
+# MyGram - A Free Photo Sharing App Written in Go
 
-Kelas: Scalable Web Services with Go (Programming Language) - Digitalent ✕ Hacktiv8
+MyGram is a photo sharing app built with Go. It allows users to share, view, and comment on photos posted by other users. MyGram is a final project submission for the "Scalable Web Services with Go" course offered by Digitalent in collaboration with Hacktiv8.
 
-MyGram is a free photo sharing app written in Go. People can share, view, and comment photos by everyone. Anyone can create an account by registering an email address and selecting a username.
+## Features
+
+- Users can create an account by registering an email address and selecting a username.
+- Users can share photos with other users.
+- Users can view and comment on photos shared by other users.
 
 ## Getting Started
 
-To start running this project locally,
+To get started with MyGram, follow the steps below:
 
-```bash
-git clone https://github.com/szczynk/MyGram.git
-```
+1. Clone the repository:
 
-Open MyGram folder and install all required dependencies
+  ```bash
+  git clone https://github.com/szczynk/MyGram.git
+  ```
 
-```bash
-cd MyGram && go mod tidy
-```
+2. Install all required dependencies:
 
-Copy the example config file and adjust the config file
+  ```bash
+  cd MyGram && go mod tidy
+  ```
 
-```bash
-cp config.example.yaml config.yaml
-```
+3. Copy the example config file and adjust the config file:
 
-Start the server
+  ```bash
+  cp config.example.yaml config.yaml
+  ```
 
-```bash
-go run main.go
-```
+4. Start the server:
 
-Check the API documentation
+  ```bash
+  go run main.go
+  ```
 
-```html
-http://localhost:8080/swagger/index.html
-```
+5. Check the API documentation:
+
+  ```bash
+  http://localhost:8080/swagger/index.html
+  ```
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to MyGram, please fork the repository and create a pull request.
+
+## License
+
+MyGram is open source and available under the MIT License.
